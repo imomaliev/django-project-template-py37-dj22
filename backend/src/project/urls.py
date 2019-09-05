@@ -25,7 +25,9 @@ from django.utils.translation import gettext_lazy as _
 
 admin.site.site_header = _("{{ project_name }} administration")
 
-urlpatterns = i18n_patterns(path("admin/", admin.site.urls), prefix_default_language=False)
+urlpatterns = i18n_patterns(
+    path("admin/", admin.site.urls), prefix_default_language=False
+)
 
 
 if settings.DEBUG:
