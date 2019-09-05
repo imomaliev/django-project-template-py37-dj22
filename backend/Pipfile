@@ -1,0 +1,30 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+django-extensions = "*"
+django-debug-toolbar = "*"
+flake8 = "*"
+"flake8-bugbear" = "*"
+"flake8-django" = "*"
+"flake8-docstrings" = "*"
+black = "==19.3b0"
+pre-commit = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-django = "*"
+pylint = "*"
+pylint-django = "*"
+ipython = "*"
+mypy = "*"
+typeshed = "*"
+
+[packages]
+django = "==2.2.5"
+django-environ = "==0.4.5"
+"psycopg2-binary" = "==2.8.3"
+
+[requires]
+python_version = "3.7"

@@ -1,0 +1,12 @@
+# pyenv
+.python-version
+
+# local .env for docker-compose
+.env
+docker-compose.override.yml
+
+# postgres dumps
+docker/postgres/dumps/
+docker/postgres/*.sql
+docker/postgres/*.sql.gz
+docker/postgres/*.sh

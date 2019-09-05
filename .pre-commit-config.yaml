@@ -1,0 +1,44 @@
+default_language_version:
+  python: python3.7
+
+default_stages: [commit, push]
+
+repos:
+-   repo: https://github.com/psf/black
+    rev: 19.3b0
+    hooks:
+    -   id: black
+        args: [--config=backend/pyproject.toml, --check, --diff]
+        files: ^backend/.*$
+        exclude: ^backend/.*/migrations/.*$
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.2.3
+    hooks:
+    -   id: flake8
+        additional_dependencies: ["flake8-bugbear==19.8.0", "flake8-django==0.0.4", "flake8-docstrings==1.3.1"]
+        args: [--config=backend/tox.ini]
+        files: backend/.*$
+-   repo: https://github.com/pre-commit/mirrors-pylint
+    rev: v2.3.1
+    hooks:
+    -   id: pylint
+        name: pylint
+        language: system
+        stages: [push]
+        additional_dependencies: ["pylint-django==2.0.11"]
+        args: [--rcfile=backend/pylintrc]
+        files: backend/(src|tests)/.*$
+# -   repo: https://github.com/pre-commit/mirrors-mypy
+#     rev: v0.720
+#     hooks:
+#     -   id: mypy
+#         stages: [push]
+#         args: [--config=backend/mypy.ini, backend/]
+# -   repo: local
+#     hooks:
+#     -   id: pytest
+#         name: pytest
+#         language: system
+#         entry: cd backend && pytest
+#         types: [python]
+#         stages: [push]

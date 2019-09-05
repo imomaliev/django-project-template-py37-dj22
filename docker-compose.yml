@@ -1,0 +1,38 @@
+version: "3.7"
+
+
+services:
+
+    postgres:
+        image: postgres:11-alpine
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+            - ./docker/postgres/:/docker-entrypoint-initdb.d/
+    backend:
+        build:
+            context: .
+            dockerfile: docker/backend/Dockerfile
+        hostname: backend.$COMPOSE_PROJECT_NAME
+        entrypoint: ["/backend.sh"]
+        command: ["backend"]
+        environment:
+            # https://docs.docker.com/compose/environment-variables/#the-env-file
+            - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE:-project.settings.development}
+            - DJANGO_DEBUG
+            - DJANGO_SECRET_KEY
+            - DJANGO_LOG_LEVEL
+            - DATABASE_URL
+        ports:
+            - "8000:8000"
+        depends_on:
+            - postgres
+        volumes:
+            - user_home:/root
+            - ./docker/backend/docker-entrypoint.sh:/backend.sh
+            - ./backend:/project/backend
+            - /project/backend/.venv
+
+
+volumes:
+    postgres_data:
+    user_home:
